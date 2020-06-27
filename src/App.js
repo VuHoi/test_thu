@@ -7,11 +7,11 @@ const App = () => {
   const [values, handleChange] = useForm({
     email: "",
     password: "",
-    firstName: ""
+    firstName: "",
   });
-  const [count, setCount] = useState(() =>
-    JSON.parse(localStorage.getItem("count"))
-  );
+  const [count, setCount] = useState(() => {
+    return JSON.parse(localStorage.getItem("count"));
+  });
   const { data, loading } = useFetch(`http://numbersapi.com/${count}/trivia`);
 
   useEffect(() => {
@@ -22,7 +22,16 @@ const App = () => {
     <div>
       <div>{!data ? "loading..." : data}</div>
       <div>count: {count}</div>
-      <button onClick={() => setCount(c => c + 1)}>increment</button>
+      <button
+        onClick={() => {
+          setCount((c) => {
+            c = c + 100;
+            return c + 1;
+          });
+        }}
+      >
+        increment
+      </button>
       <>
         {/* <button onClick={() => setShowHello(!showHello)}>toggle</button> */}
         {/* {showHello && <Hello />} */}
